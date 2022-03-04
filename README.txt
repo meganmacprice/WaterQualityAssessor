@@ -5,4 +5,5 @@ Data is open source and available on the ScienceBase Catalog found on the USGS w
 https://www.sciencebase.gov/catalog/
 
 
+This 'WaterQualityAssessor' package is published on PyPI and can be found through this link: https://pypi.org/project/WaterQualityAssessor/0.0.2/
 
