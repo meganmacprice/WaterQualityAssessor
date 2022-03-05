@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[7]:
-
-
-#!/usr/bin/env python
-# coding: utf-8
-
 # In[ ]:
 
 import math
@@ -152,7 +146,7 @@ class WaterQualityAssessor:
                 if row[col+'T']:
                     list_exce.append([index, col, round(row[col], 5)]) #adjust as needed
            
-        df_exce = pd.DataFrame(list_exce, columns=['Index','Sample_Name','Concentration (mg/L)'])
+        df_exce = pd.DataFrame(list_exce, columns=['Sample_Number','Sample_Name','Concentration (mg/L)'])
         ranked_exce = df_exce['Sample_Name'].value_counts().sort_index(ascending=False).sort_values(ascending=False)
         return ranked_exce
     
@@ -167,7 +161,7 @@ class WaterQualityAssessor:
         - Box-and-Whisker plots of the 4 samples with the highest frequency of exceedances
         '''
         # Sort DataFrame by frequency of exceedances
-        df_exce = pd.DataFrame(list_exce, columns=['Index','Sample_Name','Concentration (mg/L)'])
+        df_exce = pd.DataFrame(list_exce, columns=['Sample_Number','Sample_Name','Concentration (mg/L)'])
         df_exce['count'] = df_exce.groupby('Sample_Name')['Sample_Name'].transform('count')
         df_exce.sort_values(['count'], inplace=True, ascending=False)
         
@@ -180,7 +174,7 @@ class WaterQualityAssessor:
         plt.suptitle('Top 4 Elements with Highest Frequency of Exceedances', fontsize=18, y=0.95)
         
         i=0
-        for coc, group in df_exce.groupby('Sample_Name'):
+        for coc, group in df_exce.groupby('Sample_Name', sort=False):
             print(i,coc,group.shape[0])
             ax = plt.subplot(rowN, 2, i + 1)
             group.boxplot(by='Sample_Name',column='Concentration (mg/L)',ax=ax)
@@ -189,4 +183,3 @@ class WaterQualityAssessor:
             i +=1
             if i == 4:
                 break
-
